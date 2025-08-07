@@ -63,7 +63,7 @@ elif task == "Named Entity Recognition (NER)":
 elif task == "Text Generation":
     max_len = st.slider("Max Output Length", min_value=20, max_value=200, value=50)
     if st.button("Generate Text"):
-        nlp = pipeline("text-generation", "model="distilgpt2")
+        nlp = pipeline("text-generation")
         result = nlp(user_input, max_length=max_len, do_sample=True)
         st.write("### ✍️ Generated Text:")
         st.write(result[0]["generated_text"])
