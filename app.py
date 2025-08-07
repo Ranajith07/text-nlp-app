@@ -20,7 +20,7 @@ task = st.sidebar.selectbox(
         "Summarization",
         "Translation (English to French)",
         "Question Answering",
-        "Grammar Correction"
+        "Grammar & Spelling Correction"
         
     )
 )
