@@ -19,7 +19,8 @@ task = st.sidebar.selectbox(
         "Text Generation",
         "Summarization",
         "Translation (English to French)",
-        "Question Answering"
+        "Question Answering",
+        "Grammar Correction"
         
     )
 )
@@ -125,6 +126,28 @@ elif task == "Question Answering":
                 2. The model identifies the span of text in the context that answers the question.
                 3. Returns the answer with its position and score.
                 """)
+elif task == "Grammar & Spelling Correction":
+    st.write("### 📝 Grammar & Spelling Corrector")
+    text = st.text_area("Enter a sentence or paragraph with grammatical errors:")
+
+    if st.button("Correct Grammar"):
+        if text:
+            with st.spinner("Correcting grammar..."):
+                corrector = pipeline("text2text-generation", model="prithivida/grammar_error_correcter_v1")
+                result = corrector(text)
+                st.success("✅ Corrected Text:")
+                st.write(result[0]['generated_text'])
+
+                if show_steps:
+                    st.markdown("""
+                    ### 🧠 How it works:
+                    1. Your input is treated as a "text-to-text" problem.
+                    2. It is passed to a T5 model fine-tuned on grammatically incorrect vs. correct pairs.
+                    3. The model outputs the corrected version of your input.
+                    """)
+        else:
+            st.warning("Please enter some text.")
+
 # Footer
 st.markdown("---")
 st.markdown("Built with 🤗 [Hugging Face Transformers](https://huggingface.co/transformers/) and [Streamlit](https://streamlit.io/).")
