@@ -20,7 +20,8 @@ task = st.sidebar.selectbox(
         "Summarization",
         "Translation (English to French)",
         "Question Answering",
-        "Grammar & Spelling Correction"
+        "Grammar & Spelling Correction",
+        "Visual Question Answering (VQA)"
         
     )
 )
@@ -147,6 +148,36 @@ elif task == "Grammar & Spelling Correction":
                     """)
         else:
             st.warning("Please enter some text.")
+            
+elif task == "Visual Question Answering (VQA)":
+    st.write("### 🖼️ Upload an image and ask a question about it.")
+
+    uploaded_image = st.file_uploader("Upload an image (JPG/PNG)", type=["jpg", "jpeg", "png"])
+    question = st.text_input("Ask a question about the image:")
+
+    if uploaded_image and question:
+        from PIL import Image
+        image = Image.open(uploaded_image)
+
+        st.image(image, caption="Uploaded Image", use_column_width=True)
+
+        if st.button("Get Answer"):
+            with st.spinner("Analyzing image and question..."):
+                vqa_pipeline = pipeline("visual-question-answering", model="dandelin/vilt-b32-finetuned-vqa")
+                result = vqa_pipeline(image=image, question=question)
+                st.success("✅ Answer:")
+                st.write(result[0]['answer'])
+
+                if show_steps:
+                    st.markdown("""
+                    ### 🧠 How it works:
+                    1. The image is converted into visual embeddings using a Vision Transformer (ViT).
+                    2. The question is encoded as text.
+                    3. Both are processed together by a VQA model (ViLT) to generate an answer.
+                    """)
+    else:
+        st.info("Please upload an image and type a question.")
+
 
 # Footer
 st.markdown("---")
