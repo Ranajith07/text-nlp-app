@@ -27,7 +27,7 @@ task = st.sidebar.selectbox(
 )
 
 # Common input only for relevant tasks
-if task not in ["Question Answering", "Grammar & Spelling Correction"]:
+if task not in ["Question Answering", "Grammar & Spelling Correction","Visual Question Answering (VQA)"]:
     user_input = st.text_area("Enter your text here:")
 
 # Step-by-step explanation toggle
