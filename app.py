@@ -8,8 +8,6 @@ st.set_page_config(page_title="NLP App", page_icon="🧠", layout="centered")
 
 # App Title
 st.title("🧠 Text Analysis & Generation App")
-st.markdown("Choose a task from the sidebar to get started with powerful NLP tools powered by Hugging Face 🤗.")
-
 # Task selection in sidebar
 task = st.sidebar.selectbox(
     "Choose NLP Task",
@@ -181,4 +179,4 @@ elif task == "Visual Question Answering (VQA)":
 
 # Footer
 st.markdown("---")
-st.markdown("Built with 🤗 [Hugging Face Transformers](https://huggingface.co/transformers/) and [Streamlit](https://streamlit.io/).")
+
