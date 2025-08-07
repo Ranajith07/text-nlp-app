@@ -20,7 +20,7 @@ task = st.sidebar.selectbox(
         "Summarization",
         "Translation (English to French)",
         "Question Answering"
-        "image to text 🖼️(image captioning)"
+        
     )
 )
 
@@ -125,34 +125,6 @@ elif task == "Question Answering":
                 2. The model identifies the span of text in the context that answers the question.
                 3. Returns the answer with its position and score.
                 """)
-elif task == "Image Captioning (Image to Text)":
-    st.write("### 🖼️ Upload an image to generate a caption")
-    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-
-    if uploaded_file is not None:
-        from PIL import Image
-        import io
-
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
-
-        if st.button("Generate Caption"):
-            with st.spinner("Generating caption..."):
-                # Use the smallest available image captioning model
-                image_captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
-                result = image_captioner(image)
-                st.write("### 📝 Caption:")
-                st.write(result[0]["generated_text"])
-
-                if show_steps:
-                    st.markdown("""
-                    ### 🧠 How it works:
-                    1. The image is processed using a visual transformer (ViT).
-                    2. Visual features are passed into a text decoder (GPT-2).
-                    3. The model generates a natural language description of the image.
-                    """)
-                
-
 # Footer
 st.markdown("---")
 st.markdown("Built with 🤗 [Hugging Face Transformers](https://huggingface.co/transformers/) and [Streamlit](https://streamlit.io/).")
